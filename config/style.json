@@ -1,0 +1,13 @@
+{ 
+ "name":"SIB(Sugar Image Board)",
+ "copyright":"BLUETHEFOX 2018",
+ "defaultprofilepicture":"img/dpfp.png",
+ "logo":"img/SIB.png",
+ "showversion":true,
+ "backgroundcolour":"255,255,255,1",
+ "navbarcolour":"248, 249, 250, 1",
+ "navbarfontcolour":"255,255,255,1",
+ "bodyfontcolour":"255,255,255,1",
+ "allowuploading":true,
+ "showlimit": 10
+ }

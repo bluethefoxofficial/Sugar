@@ -1,0 +1,8 @@
+{
+	"copyright":"BLUETHEFOX 2018",
+	"version":"1.0.0",
+	"dbusername":"databaseusername",
+	"password":"database password",
+	"dbhost":"localhost",
+	"db":"database"
+}
