@@ -1,4 +1,11 @@
 <?php 
+// made by bluethefoxyt on github
+// furaffinity: bluethefoxyt
+//
+//
+//
+//
+//
 include('functions.php'); //do not change ?>
 <?php include('core/json.php'); //do not change ?>
 <!DOCTYPE html>

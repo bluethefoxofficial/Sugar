@@ -1,4 +1,5 @@
 <?php include("core/json.php"); ?>
+<?php include("functions.php"); ?>
 <html>
 	<head>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -39,7 +40,7 @@ if(!$_SESSION['user']['username']){
 		
 	}
 	?>
-	<form>
+	<form action="" method="post" enctype="multipart/form-data">
 
 	<div id="dropContainer" style="border:1px solid black;height:200px; background-color: grey;">
    <center>Drop Image Here
@@ -49,6 +50,8 @@ if(!$_SESSION['user']['username']){
 
 <input type="checkbox" onclick="toggleDiv('fileInput');toggleDiv('dropContainer');">toggle file input dialog</input>
   <input type="file" width="500px" style="display: none;" name="file" id="fileInput" />
+  <br/>
+  
   <script>
 function toggleDiv(id) {
     var div = document.getElementById(id);
@@ -70,7 +73,9 @@ dropContainer.ondrop = function(evt) {
   evt.preventDefault();
 };
 	</script>
-	<input name="nameofpoast" placeholder="name of the post" class="form-control" />
+	<input name="nop" placeholder="name of the post" class="form-control" />
+	<textarea name="description" class="form-control"></textarea>
+	<input type="submit" name="post_btn" class="btn btn-success" value="Post!" >
 	</form>
 	</p>
   </div>

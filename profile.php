@@ -10,26 +10,11 @@
 <?php include("core/menu.php"); ?>
 </head>
 <body>
-<center><h1>Browse</h1></center>
+<center><h1><?php echo strip_tags( stripcslashes ($_GET['u'])); ?></h1></center>
 <?php
-
-$conn = mysqli_connect($dbhost, $usernamedb, $password, $db);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$sql = "SELECT id, author, timestamp, type FROM posts";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "id: " . $row["id"]. " - author: " . $row["author"].  "<br>";
-    }
-} else {
-    echo "<center>no posts on this image board</center>";
-}
+$u = strip_tags( stripcslashes ($_GET['u']));
+			$query = "SELECT * FROM users WHERE username='$u' LIMIT 1";
+			$results = mysqli_query($db, $query);
 
 ?>
 		</body>

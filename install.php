@@ -87,14 +87,22 @@ if ($_GET['install'] == 2) {
     echo '<img src="img/SIB.png" height="100" width="100"></img><br/>
 				<h1>WELCOME to the install of Sugar image board the open source image board</h1>
 				<p>Please read this text carefully this will help you setup the database</p><br/>
-				1) create a database with plesk or cpanel or well phpmyadmin.<br/>
+				1) create a database with plesk or cpanel by using phpmyadmin<br/>
 				2) create a table users with the following fields:<br/>
-	- id - int(11)<br/>
+	-id - int(11)<br/>
 	-username - varchar(100)<br/>
 	-email - varchar(100)<br/>
 	-user_type - varchar(20)<br/>
 	-password - varchar(100)<br/>
-	3) after you have done that click next and follow the steps easy.<br/>
+	-profile_picture - text<br/>
+	3)create a table posts with the following fields:<br/>
+	-id - int(23)<br/>
+	-author - text<br/>
+	-timestamp - datetime</br>
+	-type text<br/>
+	-title text<br/>
+	-description text<br/>
+	4) after you have done that click next and follow the steps easy.<br/>
 				  <a href="install.php?install=2">Next</a>';
 }
 
