@@ -1,0 +1,1 @@
+<li class="nav-item"><a class="nav-link" href="#">Example of the menu addon <img width="16" height="16" src="img/accept.png"></img></a></li>

@@ -89,12 +89,12 @@ if ($_GET['install'] == 2) {
 				<p>Please read this text carefully this will help you setup the database</p><br/>
 				1) create a database with plesk or cpanel by using phpmyadmin<br/>
 				2) create a table users with the following fields:<br/>
-	-id - int(11)<br/>
 	-username - varchar(100)<br/>
 	-email - varchar(100)<br/>
 	-user_type - varchar(20)<br/>
 	-password - varchar(100)<br/>
 	-profile_picture - text<br/>
+	-id - int(255)<br/>
 	3)create a table posts with the following fields:<br/>
 	-id - int(23)<br/>
 	-author - text<br/>

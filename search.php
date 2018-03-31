@@ -11,6 +11,9 @@
 	</head>
 		<body>
 		<center><h3 class="display-4">Your search: <?php echo strip_tags(stripcslashes($_GET['q'])); ?></h3></center>
+		<form>
+		<input type="text" name="q" class="form-control" />
+		</form>
 		</body>
 		<footer>
 		<center>&copy; <?php print($copyright); ?></center>

@@ -4,6 +4,15 @@ if(file_exists("install.php")){
 	
 	//header("Location: install.php");
 }
+if($skipindex == false){
+	
+	
+	
+}else{
+	
+	header("Location: browse.php");
+	
+}
 ?>
 <html>
 	<head>

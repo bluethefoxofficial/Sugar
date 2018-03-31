@@ -75,6 +75,13 @@ dropContainer.ondrop = function(evt) {
 	</script>
 	<input name="nop" placeholder="name of the post" class="form-control" />
 	<textarea name="description" class="form-control"></textarea>
+	    <label for="type">type of content</label>
+    <select name="type" class="form-control" id="type">
+      <option>music</option>
+      <option>art</option>
+      <option>photography</option>
+      <option>other</option>
+    </select>
 	<input type="submit" name="post_btn" class="btn btn-success" value="Post!" >
 	</form>
 	</p>

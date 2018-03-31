@@ -17,5 +17,6 @@ $password = $obj->{'password'};
 $version = $obj->{'version'};
 $db = $obj->{'db'};
 $dbhost = $obj->{'dbhost'};
-$limit = $obj->{'showlimit'};
+$limit = $obj2->{'showlimit'};
+$skipindex = $obj2->{'skipsearchscreen'};
 ?>

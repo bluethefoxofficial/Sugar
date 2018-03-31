@@ -1,8 +1,8 @@
 {
 	"copyright":"BLUETHEFOX 2018",
 	"version":"1.0.0",
-	"dbusername":"test",
-	"password":"pass",
-	"dbhost":"localhost",
-	"db":"sugarimageboard"
+	"dbusername":"DATABASENAME",
+	"password":"PW",
+	"dbhost":"HOST",
+	"db":"DB"
 }

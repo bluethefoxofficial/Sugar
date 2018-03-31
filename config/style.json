@@ -10,5 +10,6 @@
  "bodyfontcolour":"255,255,255,1",
  "bodycolour":"255,255,255,1",
  "allowuploading":true,
- "showlimit": 10
+ "showlimit": 10,
+ "skipsearchscreen": false
  }

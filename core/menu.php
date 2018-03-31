@@ -30,9 +30,6 @@ body {
       <li class="nav-item">
         <a class="nav-link" href="browse.php">Browse</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="help.php">Help</a>
-      </li>
      
 	  <?php if(!$_SESSION['user']['username']){
         echo ' <li class="nav-item"><a class="nav-link" href="login.php">Login/signup</a></li>';
@@ -42,6 +39,22 @@ body {
 	  }
 	  ?>
       </li>
+	  <?php
+	  $dir = "plugins/";
+
+// Open the plugins directory, and read its contents and displays as it is put
+if (is_dir($dir)){
+  if ($dh = opendir($dir)){
+    while (($file = readdir($dh)) !== false){
+		
+		if(file_get_contents("plugins/". $file. "/type.txt") == "menuplugin"){
+      include("plugins/". $file. "/core.php");
+		}
+    }
+    closedir($dh);
+  }
+}
+	  ?>
     </ul>
   </div>
 </nav>
