@@ -1,5 +1,5 @@
 # Sugar
-a SFW image board
+a image board for everyone.
 <br/>
  <center><img src="SIB.png" width="350"/></center>
  <br/>
