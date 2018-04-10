@@ -1,6 +1,7 @@
+
 <?php 
 include('../functions.php');
-include('../core/json.php');
+include('..core/json.php');
 
 if (!isAdmin()) {
 	$_SESSION['msg'] = "You must log in first";
@@ -26,14 +27,38 @@ if (isset($_GET['logout'])) {
 <body>
 <center>
 <div class="jumbotron">
-<h1>Admin control panel - style.css editor</h1>
-<form action="">
-<textarea class="form-control" ><?php echo file_get_contents("../style.css"); ?></textarea>
-<input type="submit" value="edit" name="submit"/>
-</form>
+<h1>Admin control panel > user manager</h1>
+		<br/>
+		<?php  if (isset($_SESSION['user'])) : ?>
+					<strong>list of users and there roles</strong>
+
+<?php
+
+// Create connection
+$conn = new mysqli($dbhost, $usernamedb, $password, $db);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+?>
+				<?php endif ?>
+</div>
 </center>
 		</body>
 		<footer>
-		<center>&copy; <?php print($copyright); ?></center>
+		<center>&copy; <?php echo $copyright; ?></center>
 		</footer>
 </html>

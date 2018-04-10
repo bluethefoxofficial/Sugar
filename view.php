@@ -28,7 +28,28 @@ if (mysqli_num_rows($result) > 0) {
 $location = 'posts/'. $row["id"] .'/'. $row["id"].'.png';
 $title = $row["title"];
 $description = $row["description"];
+$type = $row["type"];
 $date = date("F j, Y, g:i a", $row["posttimestamp"]);
+if($type == "music"){
+	?>
+
+		<audio width="50%" controls>
+  <source src="posts/<?php echo $row['id']. "/". $row['id']; ?>.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<?php
+}else{
+	?>
+	<center>
+
+	
+	<center><img width="20%" src="<?php echo $location; ?>"></img>
+		<h1><?php echo $title; ?></h1> <p color="grey"><?php echo $date; ?>   type of post: <?php echo $type; ?></p></center>
+
+		
+	</center>
+	<?php
+}
     }elseif($row['id'] == null){
 		echo "<center>post doesent exist</center>";
 	}
@@ -38,16 +59,8 @@ $date = date("F j, Y, g:i a", $row["posttimestamp"]);
 }
 
 ?>
-		<center><img width="20%" src="<?php echo $location; ?>"></img>
-		<h1><?php echo $title; ?></h1> <p color="grey"><?php echo $date; ?></p>
+
 		
-		
-		
-		
-		
-		
-		
-		</center>
 		</body>
 		<footer>
 		<center>&copy; <?php print($copyright); ?></center>

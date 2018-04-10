@@ -13,7 +13,6 @@ if (isset($_GET['logout'])) {
 	header("location: ../login.php");
 }
 ?>
-<?php include("../core/json.php"); ?>
 <html>
 	<head>
 	<link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -28,9 +27,6 @@ if (isset($_GET['logout'])) {
 <center>
 <div class="jumbotron">
 <h1>Admin control panel</h1>
-		<button class="btn btn-secondary" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">
-			<img width="30%" src="users/<?php echo $_SESSION['user']['username']. "/profilepictures/". $_SESSION['user']['profile_picture'] ?>"></img>
-		</button>
 		<br/>
 		<?php  if (isset($_SESSION['user'])) : ?>
 					<strong><?php echo $_SESSION['user']['username']; ?></strong>
@@ -46,6 +42,6 @@ if (isset($_GET['logout'])) {
 </center>
 		</body>
 		<footer>
-		<center>&copy; <?php print($copyright); ?></center>
+		<center>&copy; <?php echo $copyright; ?></center>
 		</footer>
 </html>

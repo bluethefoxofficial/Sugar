@@ -24,9 +24,9 @@
     <p>The software <?php echo $name; ?> is using the <a href="https://github.com/bluethefoxyt/Sugar">Sugar Image Board(SIB)<img src="img/viewonas.png" width="10" height="10"></img></a> source code an open source image board for any developer.<br/>To download the source code with the installer click the link above.</p></div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
   <h3>Configure profile.</h3>
-  <p>To configure your profile goto user > settings > profile tab.</p>
+  <p>To configure your profile goto user > settings</p>
    <h3>Edit password</h3>
-  <p>To change your password goto user > settings > security tab.</p>
+  <p>You cant in this version.</p>
   </div>
 </div>
 		</body>

@@ -51,6 +51,8 @@ if(!$_SESSION['user']['username']){
 <input type="checkbox" onclick="toggleDiv('fileInput');toggleDiv('dropContainer');">toggle file input dialog</input>
   <input type="file" width="500px" style="display: none;" name="file" id="fileInput" />
   <br/>
+  <label>Thumbnale of post</label>
+  <br/>
   
   <script>
 function toggleDiv(id) {
@@ -70,6 +72,21 @@ dropContainer.ondrop = function(evt) {
   // pretty simple -- but not for IE :(
   fileInput.files = evt.dataTransfer.files;
   document.getElementById("dropContainer").style.backgroundColor = "green";
+  evt.preventDefault();
+};
+	</script>
+			<script>
+	// dragover and dragenter events need to have 'preventDefault' called
+// in order for the 'drop' event to register. 
+// See: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
+dropContainer.ondragover = dropContainer.ondragenter = function(evt) {
+  evt.preventDefault();
+};
+
+dropContainer.ondrop = function(evt) {
+  // pretty simple -- but not for IE :(
+  fileInput.files = evt.dataTransfer.files;
+  document.getElementById("dropContainer2").style.backgroundColor = "green";
   evt.preventDefault();
 };
 	</script>

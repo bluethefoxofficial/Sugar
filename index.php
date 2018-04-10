@@ -1,3 +1,5 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <?php include("core/json.php"); 
 
 if(file_exists("install.php")){
@@ -46,7 +48,7 @@ if($skipindex == false){
   <div class="form-group">
   <div class="col-3">
   <a href="help.php">Help</a> <a href="browse.php">Browse</a>  <a href="upload.php">Upload</a>
-  <input type="text" name="q" width="200px" class="form-control input-sm" placeholder="Search..." />
+  <input type="text" name="q" class="form-control input-sm" placeholder="Search..." />
   </div>
   </div>
   </form>

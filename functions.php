@@ -1,13 +1,37 @@
 
 <?php
+if(basename(__FILE__) == 'functions.php') {
+ echo "Please import this into a page or plugin thank you."; 
+}
 //------------------------
 // do not edit unless you know exactly what your doing
 //
 // developer bluethefox
-//	(C)bluethefox
+//	(C)bluethefox 2018
 //
 //
 //------------------------
+
+//delete folder function used in deletepost and plugins
+function delete_directory($dirname) {
+         if (is_dir($dirname))
+           $dir_handle = opendir($dirname);
+     if (!$dir_handle)
+          return false;
+     while($file = readdir($dir_handle)) {
+           if ($file != "." && $file != "..") {
+                if (!is_dir($dirname."/".$file))
+                     unlink($dirname."/".$file);
+                else
+                     delete_directory($dirname.'/'.$file);
+           }
+     }
+     closedir($dir_handle);
+     rmdir($dirname);
+     return true;
+}
+
+//end of delete code
 session_start();
 include ('core/json.php');
 
@@ -20,6 +44,10 @@ $errors = array();
 if (isset($_POST['register_btn']))
 	{
 	register();
+	}
+	if (isset($_POST['deletepost_btn']))
+	{
+	deletepost();
 	}
 
 if (isset($_POST['post_btn']))
@@ -167,8 +195,10 @@ function login()
 				{
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['profilepicture'] = $logged_in_user['profile_picture'];
+				file_put_contents("users/". $logged_in_user['username']. "/data/enckey.encsugar", md5($logged_in_user['id']));
+				file_put_contents("users/". $logged_in_user['username']. "/data/enckeyserver.encsugar", md5($logged_in_user['id'] * $logged_in_user['id']));
 				$_SESSION['success'] = "You are now logged in";
-				header('location: su-admin/home.php');
+				header('location: browse.php');
 				}
 			  else
 				{
@@ -265,4 +295,24 @@ function post()
 		exit();
 	}
 		}
+	}
+	function deletepost(){
+		global $db;
+		if($_SESSION['user']['username'] == $_POST['author']){ //check's if the author is the same as the users username
+		//if so then delete from database and filesystem(try to)
+		$query = "DELETE FROM `posts` WHERE `posts`.`id` =  '". $_POST['id']. "'";
+	if(mysqli_query($db, $query)){ //error checking
+		//successfully deleted from database now filesystem
+		delete_directory("posts/". $_POST['id']. "/");
+	}else{
+		
+		echo 'Error updating database: '.mysqli_error($db). "   sql   :    ". $query; //mysql error
+		exit();
+	}
+		
+	}else{
+		
+		echo 'invalid author'. $_POST['author'];
+		
+	}
 	}

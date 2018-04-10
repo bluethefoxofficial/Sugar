@@ -52,9 +52,9 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT id, author FROM posts";
+$sql = "SELECT id, author, posttimestamp FROM posts";
 $result = mysqli_query($conn, $sql);
-
+$value = 0;
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
@@ -64,16 +64,29 @@ if (mysqli_num_rows($result) > 0) {
   <div class="card-body">
     <h5 class="card-title">'. $row["title"] .'</h5>
     <p class="card-text">'. $row["description"] .'</p>
-    <p class="card-text"><small class="text-muted">posted on: '. date("F j, Y, g:i a", $row["posttimestamp"]) .'</small></p>
+    <p class="card-text"><small class="text-muted">posted on: '. date("F j, Y, g:i a", $row["posttimestamp"]) .'</small> 
+	<form method="post" action="" > 
+	<input hidden value="'. $row["id"] .'" name="id" /> 
+	<input hidden value="'. $row["author"] .'" name="author" /> 
+	<input type="submit" class="btn btn-danger" name="deletepost_btn" value="Delete Post!" />  
+	</form>
+	</p>
   </div>
 </div>';
+$value += 1;
 		}
     }
 } else {
-    echo "<center>no posts</center>";
+    if($value == 0){
+		
+		echo '<p>sorry but you havent posted anything post something by clicking <a href="upload.php">here</a></p>';
+		
+	}
 }
 
-?></p></div>
+?></p>
+<p>total of posts <?php echo $value; ?></p>
+</div>
   <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="contact-tab"><p>
   </p></div>
 </div>

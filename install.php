@@ -32,6 +32,11 @@ if ($_GET['install'] == 2) {
 				        
 				          <div class="form-group">
 				  <div class="col-3">
+				  <p>Sugar config settings</p>
+				  <input type="text" name="crh" width="200px" required class="form-control input-sm" placeholder="copyright holder" />
+				  <input type="text" name="version" width="200px" required class="form-control input-sm" placeholder="site version" value="1.0.0" />
+				  
+				  <p>Database values</p>
 				  <input type="text" name="dbu" width="200px" required class="form-control input-sm" placeholder="database username" />
 				  <input type="text" name="dbp" width="200px" required class="form-control input-sm" placeholder="database password" />
 				  <input type="text" name="db" width="200px" required class="form-control input-sm" placeholder="database" />
@@ -65,8 +70,8 @@ if ($_GET['install'] == 2) {
     $_SESSION['success'] = "New user successfully created!!";
     mkdir("posts/" . $_POST['username'] . "/");
     mkdir("posts/" . $_POST['username'] . "/uploads/");
-    $myObj->copyright  = "BLUETHEFOX 2018";
-    $myObj->version    = "1.0.0";
+    $myObj->copyright  = $_POST['crh'];
+    $myObj->version    = $_POST['version'];
     $myObj->dbusername = $dbusername;
     $myObj->dbpassword = $password;
     $myObj->dbhost     = $servername;

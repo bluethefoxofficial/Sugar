@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <?php
 include("core/json.php");
@@ -27,9 +28,19 @@ body {
   
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+	   <li class="nav-item">
+        <a class="nav-link" href="home.php">Admin home</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="users.php">manage users</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="updatestyle.php">edit style.css</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="updatestyle.php">edit config.json (WARNING YOU CANNOT REVERSE ANY DAMAGE)</a>
+      </li>
+	  
     </ul>
   </div>
 </nav>

@@ -1,7 +1,19 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <?php
 include("core/json.php");
 session_start();
+?>
+<?php
+if ($_SESSION['user']['user_type'] == "admin") {
+    ?>
+<div style="height: 40px; width: 100%; background-color: black;">
+<img width="40" height="40" src="img/SIB.png"></img>
+<a class="btn btn-success" href="su-admin/home.php">admin control panel</a>
+</div>
+<?php
+}
+
 ?>
 <style>
 .navbar-light .navbar-nav .nav-link {
