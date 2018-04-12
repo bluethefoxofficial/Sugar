@@ -1,5 +1,37 @@
 <?php include("core/json.php"); 
 $_SESSION['success'] = null;
+	if (isset($_POST['applyskin_btn']))
+	{
+	applyskin();
+	}
+		function applyskin(){
+		
+		
+	file_put_contents("mainpagestyle.css"," 
+
+
+
+	.navbar{
+		
+	background-color: ". $_POST['navbarset'] ." !important;
+	color: ". $_POST['navbarfontset'] .";	!important
+		
+		
+	}
+	body{
+	
+	
+	background-color: ". $_POST['bodybackground'] ." !important;
+	color: ". $_POST['bodyfont'] ." !important;
+	}
+	.jumbotron{
+		
+		background-color: ". $_POST['bodybackground'] ." !important;
+		
+	}
+	");
+	}
+	
 ?>
 <html>
 	<head>
@@ -10,6 +42,7 @@ $_SESSION['success'] = null;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <?php include("core/menu.php"); ?>
+<?php include("functions.php"); ?>
 </head>
 <body>
 <center><h1>Browse</h1></center>

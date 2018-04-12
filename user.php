@@ -88,6 +88,16 @@ $value += 1;
 <p>total of posts <?php echo $value; ?></p>
 </div>
   <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="contact-tab"><p>
+  <form>
+  <p>profile picture</p>
+  <input type="file" class="btn btn-success" />
+  
+  </form>  
+  
+  
+  
+  
+  
   </p></div>
 </div>
 				<?php endif ?>

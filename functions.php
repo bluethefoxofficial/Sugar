@@ -1,8 +1,7 @@
 
 <?php
-if(basename(__FILE__) == 'functions.php') {
- echo "Please import this into a page or plugin thank you."; 
-}
+
+
 //------------------------
 // do not edit unless you know exactly what your doing
 //
@@ -53,6 +52,10 @@ if (isset($_POST['register_btn']))
 if (isset($_POST['post_btn']))
 	{
 	post();
+	}
+	if (isset($_POST['applyskin_btn']))
+	{
+	applyskin();
 	}
 
 if (isset($_POST['login_btn']))
@@ -315,4 +318,31 @@ function post()
 		echo 'invalid author'. $_POST['author'];
 		
 	}
+}
+		function applyskin(){
+		
+		
+	file_put_contents("mainpagestyle.css"," 
+
+
+
+	.navbar{
+		
+	background-color: ". $_POST['navbarset'] ." !important;
+	color: ". $_POST['navbarfontset'] ."	!important;
+		
+		
+	}
+	body{
+	
+	
+	background-color: ". $_POST['bodybackground'] ." !important;
+	color: ". $_POST['bodyfont'] ." !important;
+	}
+	.jumbotron{
+		
+		background-color: ". $_POST['bodybackground'] ." !important;
+		
+	}
+	");
 	}

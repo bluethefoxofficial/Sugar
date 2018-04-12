@@ -28,6 +28,27 @@ if (isset($_GET['logout'])) {
 <div class="jumbotron">
 <h1>Admin control panel</h1>
 		<br/>
+		<?php
+		if(file_get_contents("https://raw.githubusercontent.com/bluethefoxyt/Sugar/master/version.txt") == file_get_contents("../version.txt"))
+		{
+		
+		?>
+				<div class="alert alert-success" role="alert">
+  Sib is up to date
+</div>
+		<?php
+		
+		}elseif(file_get_contents("https://raw.githubusercontent.com/bluethefoxyt/Sugar/master/version.txt") > file_get_contents("../version.txt"))
+		{
+		?>
+		
+		<div class="alert alert-danger" role="alert">
+  Sib is not up to date download the latest version on the github repo to hide this message and get the latest bug and security patches and have extra features  <p>the github version is <?php echo file_get_contents("https://raw.githubusercontent.com/bluethefoxyt/Sugar/master/version.txt"); ?> | your current version is <?php echo file_get_contents("../version.txt"); ?></p>
+</div>
+		
+		<?php
+		}
+		?>
 		<?php  if (isset($_SESSION['user'])) : ?>
 					<strong><?php echo $_SESSION['user']['username']; ?></strong>
 
