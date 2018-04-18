@@ -1,7 +1,7 @@
 {
 	"copyright":"BLUETHEFOX 2018",
-	"dbusername":"csoft_sugar",
-	"password":"Fhpl16&0",
-	"dbhost":"mysql03.hostinguk.net",
-	"db":"csoftwar_sugarimageboard"
+	"dbusername":"DBUSERNAME",
+	"password":"PASSWORD",
+	"dbhost":"DATABASE HOST",
+	"db":"DATABASE"
 }
