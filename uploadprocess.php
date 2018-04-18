@@ -8,7 +8,7 @@ if(!$_COOKIE['token'] == $token){
 	
 	
 	
-	
+	//CODE NO LONGER USED GOTO FUNCTIONS.PHP FOR THE POST CODE
 	
 	
 	
