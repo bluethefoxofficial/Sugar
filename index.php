@@ -27,17 +27,6 @@ if($skipindex == false){
 <script src="js/bootstrap.min.js"></script>
 	</head>
 		<body height="100%">
-		<p><?php 
-		
-		if($showversion = true){
-		
-		echo "Version: ". $version; 
-		
-		}else{
-			
-			
-		}
-		?></p>
 		<div class="h-100 row align-items-center">
   <div class="col">
   <center>

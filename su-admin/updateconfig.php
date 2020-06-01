@@ -48,9 +48,9 @@ if (isset($_GET['logout'])) {
 <body>
 <center>
 <div class="jumbotron">
-<h1>Admin control panel - style.css editor</h1>
+<h1>Admin control panel - config.json editor</h1>
 <form action="" method="post">
-<textarea rows="20" name="content" class="form-control" ><?php echo file_get_contents("../style.css"); ?></textarea>
+<textarea rows="20" name="content" class="form-control" ><?php echo file_get_contents("../config/config.json"); ?></textarea>
 <br/>
 <input type="submit" value="edit" name="submit"/>
 </form>
@@ -59,7 +59,7 @@ if (isset($_GET['logout'])) {
 
 
 if($_POST['submit']){
-	file_put_contents("../style.css", $_POST['content']);
+	file_put_contents("../config/config.json", $_POST['content']);
 }
 ?>
 </center>

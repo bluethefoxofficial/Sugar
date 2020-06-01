@@ -13,10 +13,12 @@ $name = $obj2->{'name'};
 $copyright = $obj2->{'copyright'};
 $showversion = $obj2->{'showversion'};
 $usernamedb = $obj->{'dbusername'};
-$password = $obj->{'password'};
+$password = $obj->{'dbpassword'};
+$nsfw = $obj2->{'nsfw'};
 $version = file_get_contents("../version.txt");
 $db = $obj->{'db'};
 $dbhost = $obj->{'dbhost'};
 $limit = $obj2->{'showlimit'};
+$userlimit = $obj2->{'userlimit'};
 $skipindex = $obj2->{'skipsearchscreen'};
 ?>

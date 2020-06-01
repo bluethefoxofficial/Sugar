@@ -1,6 +1,28 @@
 <?php 
 include('../functions.php');
-include('../core/json.php');
+
+$json = file_get_contents("../config/config.json");
+$json2 = file_get_contents("../config/style.json");
+$obj = json_decode($json);
+$obj2 = json_decode($json2);
+$dpfp = $obj2->{'defaultprofilepicture'};
+$allowuploading = $obj2->{'allowuploading'};
+$logo = $obj2->{'logo'};
+$navbarcolour = $obj2->{'navbarcolour'};
+$navbarfontcolour = $obj2->{'navbarfontcolour'};
+$bodycolour = $obj2->{'bodycolour'};
+$name = $obj2->{'name'};
+$copyright = $obj2->{'copyright'};
+$showversion = $obj2->{'showversion'};
+$usernamedb = $obj->{'dbusername'};
+$password = $obj->{'dbpassword'};
+$version = file_get_contents("../version.txt");
+$db = $obj->{'db'};
+$dbhost = $obj->{'dbhost'};
+$limit = $obj2->{'showlimit'};
+$skipindex = $obj2->{'skipsearchscreen'};
+
+
 
 if (!isAdmin()) {
 	$_SESSION['msg'] = "You must log in first";
@@ -21,7 +43,20 @@ if (isset($_GET['logout'])) {
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
-<?php include("../core/adminmenu.php"); ?>
+<?php include("../core/adminmenu.php"); 
+
+
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://raw.githubusercontent.com/bluethefoxyt/Sugar/master/version.txt');
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$data = curl_exec($ch);
+curl_close($ch);
+
+
+
+?>
 </head>
 <body>
 <center>
@@ -29,16 +64,16 @@ if (isset($_GET['logout'])) {
 <h1>Admin control panel</h1>
 		<br/>
 		<?php
-		if(file_get_contents("https://raw.githubusercontent.com/bluethefoxyt/Sugar/master/version.txt") == file_get_contents("../version.txt"))
+		if($data == file_get_contents("../version.txt"))
 		{
 		
 		?>
 				<div class="alert alert-success" role="alert">
-  Sib is up to date
+  Sib is up to date | your current version is <?php echo file_get_contents("../version.txt"); ?>
 </div>
 		<?php
 		
-		}elseif(file_get_contents("https://raw.githubusercontent.com/bluethefoxyt/Sugar/master/version.txt") > file_get_contents("../version.txt"))
+		}elseif($data > file_get_contents("../version.txt"))
 		{
 		?>
 		

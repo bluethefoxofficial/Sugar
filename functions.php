@@ -10,6 +10,8 @@
 //
 //
 //------------------------
+session_start();
+include ('core/json.php');
 
 //delete folder function used in deletepost and plugins
 function delete_directory($dirname) {
@@ -31,8 +33,7 @@ function delete_directory($dirname) {
 }
 
 //end of delete code
-session_start();
-include ('core/json.php');
+
 
 
 $db = mysqli_connect($dbhost, $usernamedb, $password, $db);
@@ -76,10 +77,10 @@ function register()
 
 	// receive all input values from the form
 
-	$username = e($_POST['username']);
-	$email = e($_POST['email']);
-	$password_1 = e($_POST['password_1']);
-	$password_2 = e($_POST['password_2']);
+	$username = $_POST['username'];
+	$email = $_POST['email'];
+	$password_1 = $_POST['password_1'];
+	$password_2 = $_POST['password_2'];
 
 	// form validation: ensure that the form is correctly filled
 
@@ -102,16 +103,40 @@ function register()
 		{
 		array_push($errors, "The two passwords do not match");
 		}
+		$connul = new mysqli($dbhost, $usernamedb, $password, $db);
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+		} 
+		
+		$sql = "SELECT * FROM users";
+		$userper = 0;
+		$result = $connul->query($sql);
+		
+		if ($result->num_rows > 0) {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$userper +=1;
+			}
+		} else {
+			
+		}
+		if($userlimit == $userper){
+			if($userlimit == 0){
+
+			}else{
+			array_push($errors, "ThIs imageboard has reached is maximum user capacity.");
+			}
+		}
 
 	// register user if there are no errors in the form
 
 	if (count($errors) == 0)
 		{
-		$password = md5($password_1); //encrypt the password before saving in the database
+		$password = password_hash($password_1, PASSWORD_DEFAULT); //encrypt the password before saving in the database
 		$profilepicture = '4738783.png';
 		if (isset($_POST['user_type']))
 			{
-			$user_type = e($_POST['user_type']);
+			$user_type = $_POST['user_type'];
 			$userid = rand(1,999999);
 			mkdir("users/$username");
 			mkdir("users/$username/profilepictures");
@@ -169,8 +194,8 @@ function login()
 
 	// grap form values
 
-	$username = e($_POST['username']);
-	$password = e($_POST['password']);
+	$username = $_POST['username'];
+	$password = $_POST['password'];
 	if (empty($username))
 		{
 		array_push($errors, "Username is required");
@@ -185,15 +210,19 @@ function login()
 
 	if (count($errors) == 0)
 		{
-		$password = md5($password);
-		$query = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
+		$query = "SELECT * FROM users WHERE username='$username' LIMIT 1";
 		$results = mysqli_query($db, $query);
 		if (mysqli_num_rows($results) == 1)
 			{ // user found
-
+			//check password
 			// check if user is admin or user
 
 			$logged_in_user = mysqli_fetch_assoc($results);
+			if(!password_verify($password,$logged_in_user['password'])){
+
+				array_push($errors, "Wrong username/password combination");
+
+			}else{
 			if ($logged_in_user['user_type'] == 'admin')
 				{
 				$_SESSION['user'] = $logged_in_user;
@@ -209,6 +238,7 @@ function login()
 				$_SESSION['success'] = "You are now logged in";
 				header('location: index.php');
 				}
+			}
 			}
 		  else
 			{
@@ -273,7 +303,7 @@ function post()
 	if (isset($_POST["post_btn"]))
 		{
 				global $db;
-	$id = rand(100,254654565654);
+	$id = time();
 	mkdir("posts/" . $id);
 	$target_dir = "posts/" . $id . "/";
 	$target_file = $target_dir .  $id. ".png";
@@ -286,11 +316,12 @@ function post()
 		$type = $_POST['type'];
 		$title = strip_tags(stripcslashes($_POST['nop']));
 		$desc = strip_tags(stripcslashes($_POST['description']));
-		$query = "INSERT INTO posts (id, author, posttimestamp, type, title, description,repost,repostauthor)
-		VALUES ('". $id ."','". $_SESSION['user']['username'] ."','". $date->getTimestamp() ."','". $type ."','". $title ."','". $desc ."',0,'". null ."');"; //adds it to the database
+		$author = strip_tags(stripcslashes($_SESSION['user']['username']));
+		$time = time();
+		$query = "INSERT INTO posts (id, author, posttimestamp, type, title, description,repost,repostauthor)	VALUES ('". $id ."', '". $author."', ". $time .", '". $_POST['type'] ."', '". $_POST['nop'] ."', '". $_POST['description'] ."',0,0)"; //adds it to the database
 		$_SESSION['success'] = "Post created successfully!";
+		echo $query;
 	if(mysqli_query($db, $query)){
-		
 		
 	}else{
 		

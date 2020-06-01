@@ -1,36 +1,12 @@
+<?php include("functions.php"); ?>
 <?php include("core/json.php"); 
+
 $_SESSION['success'] = null;
 	if (isset($_POST['applyskin_btn']))
 	{
 	applyskin();
 	}
-		function applyskin(){
-		
-		
-	file_put_contents("mainpagestyle.css"," 
 
-
-
-	.navbar{
-		
-	background-color: ". $_POST['navbarset'] ." !important;
-	color: ". $_POST['navbarfontset'] .";	!important
-		
-		
-	}
-	body{
-	
-	
-	background-color: ". $_POST['bodybackground'] ." !important;
-	color: ". $_POST['bodyfont'] ." !important;
-	}
-	.jumbotron{
-		
-		background-color: ". $_POST['bodybackground'] ." !important;
-		
-	}
-	");
-	}
 	
 ?>
 <html>
@@ -42,9 +18,9 @@ $_SESSION['success'] = null;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <?php include("core/menu.php"); ?>
-<?php include("functions.php"); ?>
 </head>
 <body>
+
 <center><h1>Browse</h1></center>
 <div class="row">
 <?php
@@ -62,7 +38,7 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         
 		echo '<div class="col-sm-6">
-  <a href="view.php?id='. $row["id"] .'"><img class="card-img-top" width="40%" height="40%" src="posts/'. $row["id"] .'/'. $row["id"].'.png" alt="'. $row["title"] .'"></a>
+  <a href="view.php?id='. $row["id"] .'"><img class="card-img-top" src="posts/'. $row["id"] .'/'. $row["id"].'.png" alt="'. $row["title"] .'"></a>
   <div class="card-body">
     <h5 class="card-title">'. strip_tags(stripcslashes($row["title"])) .'</h5>
     <p class="card-text">'. strip_tags(stripcslashes($row["description"])) .'</p>

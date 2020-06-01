@@ -49,7 +49,7 @@ if(!$_SESSION['user']['username']){
 </div>
 
 <input type="checkbox" onclick="toggleDiv('fileInput');toggleDiv('dropContainer');">toggle file input dialog</input>
-  <input type="file" width="500px" style="display: none;" name="file" id="fileInput" />
+  <input class="btn btn-success" type="file" width="500px" style="display: none;" name="file" id="fileInput" />
   <br/>
   <label>Thumbnale of post</label>
   <br/>

@@ -4,13 +4,18 @@
 <link rel='stylesheet' href='mainpagestyle.css' />
 <?php
 include("core/json.php");
+if(file_exists("config/config.json")){
+
+}else{
+  header("Header: install.php");
+}
 session_start();
 ?>
 <?php
 if ($_SESSION['user']['user_type'] == "admin") {
     ?>
 <div id="hidden_content" style="height: 40px; width: 100%; background-color: black;">
-<img width="40" height="40" src="img/SIB.png"></img>
+<img width="30" height="30" src="img/SIB.png"></img>
 <a class="btn btn-link" href="su-admin/home.php">admin control panel</a>
 <button class="btn btn-link" data-toggle="modal" data-target=".bd-example-modal-lg">live style editor</button>
 <button class="btn btn-link" id="adminnavbtn">X</button>
@@ -192,7 +197,21 @@ body {
 if (is_dir($dir)){
   if ($dh = opendir($dir)){
     while (($file = readdir($dh)) !== false){
-		
+        if($file == ".." ){
+        break;
+        }
+        if($file == "."){
+        break;
+        }
+
+        if(file_exists("plugins/". $file. "/type.txt")){ }else{
+          echo '<div class="alert alert-danger" role="alert">
+          ERROR: '. $file.' does not have a type file associated with it.
+        </div>';
+        }
+        if(file_exists("plugins/". $file. "/inactive.txt")){
+        break;
+        }
 		if(file_get_contents("plugins/". $file. "/type.txt") == "menuplugin"){
       include("plugins/". $file. "/core.php");
 		}

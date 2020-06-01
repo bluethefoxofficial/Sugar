@@ -1,7 +1,30 @@
 
 <?php 
 include('../functions.php');
-include('..core/json.php');
+
+$json = file_get_contents("../config/config.json");
+$json2 = file_get_contents("../config/style.json");
+$obj = json_decode($json);
+$obj2 = json_decode($json2);
+$dpfp = $obj2->{'defaultprofilepicture'};
+$allowuploading = $obj2->{'allowuploading'};
+$logo = $obj2->{'logo'};
+$navbarcolour = $obj2->{'navbarcolour'};
+$navbarfontcolour = $obj2->{'navbarfontcolour'};
+$bodycolour = $obj2->{'bodycolour'};
+$name = $obj2->{'name'};
+$copyright = $obj2->{'copyright'};
+$showversion = $obj2->{'showversion'};
+$usernamedb = $obj->{'dbusername'};
+$password = $obj->{'dbpassword'};
+$version = file_get_contents("../version.txt");
+$db = $obj->{'db'};
+$dbhost = $obj->{'dbhost'};
+$limit = $obj2->{'showlimit'};
+$userlimit = $obj2->{'userlimit'};
+$skipindex = $obj2->{'skipsearchscreen'};
+
+
 
 if (!isAdmin()) {
 	$_SESSION['msg'] = "You must log in first";
@@ -13,6 +36,8 @@ if (isset($_GET['logout'])) {
 	unset($_SESSION['user']);
 	header("location: ../login.php");
 }
+						// Create connection
+						$conn = new mysqli($dbhost, $usernamedb, $password, $db);
 ?>
 <html>
 	<head>
@@ -29,32 +54,67 @@ if (isset($_GET['logout'])) {
 <div class="jumbotron">
 <h1>Admin control panel > user manager</h1>
 		<br/>
-		<?php  if (isset($_SESSION['user'])) : ?>
+		
 					<strong>list of users and there roles</strong>
+					<?php if($userlimit == 0){
 
-<?php
+					}else{
 
-// Create connection
-$conn = new mysqli($dbhost, $usernamedb, $password, $db);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$sql = "SELECT * FROM users";
+$userper = 0;
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+		$userper +=1;
+    }
+} else {
+    
+}?>
+
+
+
+					<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: <?php echo  number_format($userper / $userlimit * 100); ?>%" aria-valuenow="<?php echo  number_format($userper / $userlimit * 100); ?>" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+
+
+<?php
+
+					}
+					?>
+					<?php  if (isset($_SESSION['user'])) : ?>
+					<?php
+// Create connection
+//$conn = new mysqli($dbhost, $usernamedb, $password, $db);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT * FROM users";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        ?>
+		
+		<?php
     }
 } else {
     echo "0 results";
 }
 $conn->close();
 ?>
-				<?php endif ?>
+<?php endif ?>
 </div>
 </center>
 		</body>

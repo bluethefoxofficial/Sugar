@@ -38,7 +38,7 @@ body {
         <a class="nav-link" href="updatestyle.php">edit style.css</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="updatestyle.php">edit config.json (WARNING YOU CANNOT REVERSE ANY DAMAGE)</a>
+        <a class="nav-link" href="updateconfig.php">edit config.json</a>
       </li>
 	  
     </ul>
