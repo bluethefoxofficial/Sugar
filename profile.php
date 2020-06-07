@@ -10,13 +10,22 @@
 <?php include("core/menu.php"); ?>
 </head>
 <body>
-<center><h1><?php echo strip_tags( stripcslashes ($_GET['u'])); ?></h1></center>
+
 <?php
 $u = strip_tags( stripcslashes ($_GET['u']));
 			$query = "SELECT * FROM users WHERE username='$u' LIMIT 1";
 			$results = mysqli_query($db, $query);
+			$row = mysqli_fetch_assoc($results);
+
 
 ?>
+
+	<div class="jumbotron">
+	<center><h1><?php echo strip_tags( stripcslashes ($_GET['u'])); ?></h1></center>
+			
+</div>
+
+
 		</body>
 		<footer>
 		<center>&copy; <?php print($copyright); ?></center>

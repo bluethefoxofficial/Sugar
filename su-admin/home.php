@@ -82,6 +82,14 @@ curl_close($ch);
 </div>
 		
 		<?php
+		}else{
+			?>
+
+<div class="alert alert-warning" role="alert">
+ You're using SIB alpha or R series or early release which can be unstable if your testing thats fine but otherwise please switch back to the latest version ob SIB on github  <?php echo file_get_contents("https://raw.githubusercontent.com/bluethefoxyt/Sugar/master/version.txt"); ?>. Your version is <?php echo file_get_contents("../version.txt"); ?>.
+</div>
+
+			<?php
 		}
 		?>
 		<?php  if (isset($_SESSION['user'])) : ?>

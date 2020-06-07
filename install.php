@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 
 <?php
+if ($_GET['install'] == "3" && $_GET['install'] == "4") {
+
+}else{
 if(file_exists("config/config.json")){
 header("Location: index.php");
 }
-
+}
 ?>
 <html>
 <head>
 	<title>Sugar installation</title>
+	<style>
+		code {
+  font-family: Consolas,"courier new";
+  color: crimson;
+  background-color: #f1f1f1;
+  padding: 2px;
+  font-size: 105%;
+}
+	</style>
 </head>
 
-<body>
+<body style="background-image: url('img/install-background.png'); background-repeat: no-repeat; width: 100%;     overflow-x: hidden;   background-size: cover;">
 	<?php include ("core/json.php"); function generateRandomString($length = 10) { return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))) , 1, $length); } ?>
 	<link href="img/SIBc.png" rel="icon">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +35,6 @@ header("Location: index.php");
 	<script src="js/bootstrap.min.js">
 	</script>
 
-	<p>Installation</p>
 
 
 	<div class="h-100 row align-items-center">
@@ -54,6 +65,7 @@ if ($_GET['install'] == 2) {
 				  <textarea type="text" name="bio" width="200px" required class="form-control input-sm" placeholder="admin bio" value="password" ></textarea>
 				  </div>
 				  </div>
+				  <a href="install.php" class="btn btn-success">previous</a>
 				        <button class="btn btn-success">next</button>
 				        </form>';
 } elseif ($_POST['install'] == 3) {
@@ -87,7 +99,7 @@ VALUES      ('$username',
     mkdir("posts/" . $_POST['username'] . "/");
     mkdir("posts/" . $_POST['username'] . "/". "uploads/");
     $myObj->copyright  = $_POST['crh'];
-    $myObj->dbusername = $username;
+    $myObj->dbusername = $usernamedb;
     $myObj->dbpassword = $_POST['dbp'];
     $myObj->dbhost     = $servername;
     $myObj->db         = $dbname;
@@ -104,11 +116,12 @@ VALUES      ('$username',
 				        <p>to edit your style please go into config/style.json in your Sugar location</p>
 				        <p><font color="red">delete this file to prevent security issues</font></p>';
 } else {
-    echo '<img src="img/SIB.png" height="100" width="100"></img><br/>
-				<h1>WELCOME to the install of Sugar image board the open source image board</h1>
-				<p>Please read this text carefully this will help you setup the database</p><br/>
-				1) create a database with plesk or cpanel by using phpmyadmin<br/>
-				2) create a table users with the following sql code:<br/>
+?><img src="img/SIB.png" height="100" width="100"></img><br/>
+				<h1>welcome to the installer of Sugar image board the open source image board</h1>
+				<p style="color: red; font-size: 20px;">Please read this text carefully this will help you setup the database</p><br/>
+				<br/>1) create a database by using phpmyadmin <a target="_blank" href="https://www.phpmyadmin.net/about/">?</a><br/>
+				<br/>2) create a table users with the following sql code:<br/>
+				<br/><code>
 				CREATE TABLE `users` (
 					`id` int(11) NOT NULL,
 					`username` text NOT NULL,
@@ -117,8 +130,9 @@ VALUES      ('$username',
 					`user_type` text NOT NULL,
 					`profile_picture` text NOT NULL
 				  ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-	3)create a table posts with the provided sql code:<br/>
-	<code>CREATE TABLE `posts` (
+				  </code>
+				  <br/>3)create a table posts with the provided sql code:<br/>
+				  <br/><code>CREATE TABLE `posts` (
 		`id` int(11) NOT NULL,
 		`author` text NOT NULL,
 		`posttimestamp` datetime NOT NULL,
@@ -127,8 +141,17 @@ VALUES      ('$username',
 		`description` text NOT NULL
 	  ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 	  COMMIT;</code>
-	4) after you have done that click next and follow the steps.<br/>
-				  <a href="install.php?install=2">Next</a>';
+
+
+	<br/>4) make a table for the token system implimented in 1.3.6
+	<br/><code>CREATE TABLE `tokens` (
+  `ID` bigint(255) NOT NULL,
+  `token` text NOT NULL,
+  `user` text NOT NULL,
+  `useragent` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;</code>
+	<br/>5) after you have done that click next and follow the steps.<br/>
+				  <a class="btn btn-success" href="install.php?install=2">Next</a><?php
 }
 
 ?>

@@ -40,56 +40,25 @@ if(!$_SESSION['user']['username']){
 		
 	}
 	?>
-	<form action="" method="post" enctype="multipart/form-data">
+	<iframe id="hidden_iframe" hidden name="hidden_iframe" src="about:blank"></iframe>
+	<form id="uploadform" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data" target="hidden_iframe">
 
-	<div id="dropContainer" style="border:1px solid black;height:200px; background-color: grey;">
-   <center>Drop Image Here
-   <br/>
-   </center>
-</div>
 
-<input type="checkbox" onclick="toggleDiv('fileInput');toggleDiv('dropContainer');">toggle file input dialog</input>
-  <input class="btn btn-success" type="file" width="500px" style="display: none;" name="file" id="fileInput" />
+
+
+  <input class="btn btn-success" type="file" width="500px" name="file" id="fileInput" />
   <br/>
   <label>Thumbnale of post</label>
   <br/>
   
   <script>
+  //redundent
 function toggleDiv(id) {
     var div = document.getElementById(id);
     div.style.display = div.style.display == "none" ? "block" : "none";
 }
 </script>
-		<script>
-	// dragover and dragenter events need to have 'preventDefault' called
-// in order for the 'drop' event to register. 
-// See: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
-dropContainer.ondragover = dropContainer.ondragenter = function(evt) {
-  evt.preventDefault();
-};
 
-dropContainer.ondrop = function(evt) {
-  // pretty simple -- but not for IE :(
-  fileInput.files = evt.dataTransfer.files;
-  document.getElementById("dropContainer").style.backgroundColor = "green";
-  evt.preventDefault();
-};
-	</script>
-			<script>
-	// dragover and dragenter events need to have 'preventDefault' called
-// in order for the 'drop' event to register. 
-// See: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
-dropContainer.ondragover = dropContainer.ondragenter = function(evt) {
-  evt.preventDefault();
-};
-
-dropContainer.ondrop = function(evt) {
-  // pretty simple -- but not for IE :(
-  fileInput.files = evt.dataTransfer.files;
-  document.getElementById("dropContainer2").style.backgroundColor = "green";
-  evt.preventDefault();
-};
-	</script>
 	<input name="nop" placeholder="name of the post" class="form-control" />
 	<textarea name="description" class="form-control"></textarea>
 	    <label for="type">type of content</label>
@@ -97,9 +66,45 @@ dropContainer.ondrop = function(evt) {
       <option>music</option>
       <option>art</option>
       <option>photography</option>
-      <option>other</option>
     </select>
-	<input type="submit" name="post_btn" class="btn btn-success" value="Post!" >
+	<input type="hidden" value="uploadform" name="<?php echo ini_get("session.upload_progress.name"); ?>">
+	<input type="submit" name="post_btn" class="btn btn-success" value="Post!" id="submit" >
+
+	<div class="progress">
+  <div id="bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span id="status">0%</span></div>
+</div>
+	<script>
+	//	var btn = document.getElementById("submit");
+		btn.onclick = function() {
+
+
+			$('#upload').modal({
+				keyboard: false,
+				show: true,
+				backdrop: 'static'
+			})
+
+
+		};
+
+
+
+
+	</script>
+<div class="modal" id="upload" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Uploading... </h5>
+      </div>
+      <div class="modal-body">
+        <p>Post uploading.</p>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
 	</form>
 	</p>
   </div>

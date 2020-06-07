@@ -1,5 +1,6 @@
 <?php
 include ("core/json.php");
+include ("functions.php");
  ?>
 <html>
 	<head>

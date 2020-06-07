@@ -26,7 +26,7 @@ if($skipindex == false){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 	</head>
-		<body height="100%">
+		<body height="100%" style="background-image: url('<?php echo $background; ?>'); background-repeat: no-repeat; width: 100%;     overflow-x: hidden;   background-size: cover;">
 		<div class="h-100 row align-items-center">
   <div class="col">
   <center>
@@ -44,8 +44,9 @@ if($skipindex == false){
   </center>
   </div>
 </div>
-		</body>
-		<footer>
+<footer>
 		<center>&copy; <?php print($copyright); ?></center>
 		</footer>
+		</body>
+	
 </html>

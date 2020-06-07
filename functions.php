@@ -13,6 +13,9 @@
 session_start();
 include ('core/json.php');
 
+
+
+
 //delete folder function used in deletepost and plugins
 function delete_directory($dirname) {
          if (is_dir($dirname))
@@ -41,6 +44,90 @@ $username = "";
 $email = "";
 $errors = array();
 
+
+if($_COOKIE['token'] == ""){
+	session_destroy();
+}else{
+	
+	$sqls = "SELECT * FROM tokens WHERE TOKEN LIKE '". $_COOKIE['token']."';";
+	//echo $sqls;
+	
+	$result = mysqli_query($db, $sqls);
+	
+	if (mysqli_num_rows($result) > 0) {
+	  // output data of each row
+	  while($row = mysqli_fetch_assoc($result)) {
+		$_SESSION['user']['username'] = $row['user'];
+		$_SESSION['profilepicture'] = $row['profile_picture'];
+	  }
+	} else {
+	  session_destroy();
+	}
+}
+
+
+if($nsfw == true){
+
+
+	if(!$_COOKIE['aou']){
+?>
+<style>
+#dimScreen
+{
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background:url("<?php echo $background; ?>");
+	z-index: 100;
+}
+</style>
+
+
+
+<div id="dimScreen">
+
+<div style="  width: 50%; margin: 0 auto;">
+<h1>age check.</h1>
+<p>Are you over 18 years of age?</p>
+<a class="btn btn-info" href="#" onclick="document.cookie='aou=true'; checked();">Yes i am let me proceed.</a>
+<br/>
+<a class="btn btn-info" href="https://google.com/">Im not over 18 GET ME OUT OF HERE!</a>
+</div>
+<script>
+function checked(){
+
+	var ad = document.getElementById("dimScreen");
+	ad.remove(); 
+}
+</script>
+
+</div>
+
+<?php
+	}else{}
+}else{}
+
+//userdatacheck
+$sqlu = "SELECT * FROM users WHERE username LIKE '". $_SESSION['user']['username'] ."'";
+$resultu = mysqli_query($db, $sqlu);
+
+
+  while($roww = mysqli_fetch_assoc($resultu)) {
+	$profileun = $roww['username'];//username
+	$usertype = $roww['user_type'];//usertype
+	$bio = $roww['bio'];//bio
+	$profilepicture = $roww['profile_picture'];//profile picture
+		
+  }
+
+
+
 if (isset($_POST['register_btn']))
 	{
 	register();
@@ -68,6 +155,7 @@ if (isset($_GET['logout']))
 	{
 	session_destroy();
 	unset($_SESSION['user']);
+	setcookie('token', null, -1, "/"); 
 	header("location: ../login.php");
 	}
 
@@ -187,14 +275,22 @@ function getUserById($id)
 	$user = mysqli_fetch_assoc($result);
 	return $user;
 	}
-
+	function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
 function login()
 	{
 	global $db, $username, $errors;
 
 	// grap form values
 
-	$username = $_POST['username'];
+	$username = stripslashes(strip_tags($_POST['username']));
 	$password = $_POST['password'];
 	if (empty($username))
 		{
@@ -230,10 +326,30 @@ function login()
 				file_put_contents("users/". $logged_in_user['username']. "/data/enckey.encsugar", md5($logged_in_user['id']));
 				file_put_contents("users/". $logged_in_user['username']. "/data/enckeyserver.encsugar", md5($logged_in_user['id'] * $logged_in_user['id']));
 				$_SESSION['success'] = "You are now logged in";
-				header('location: browse.php');
+				$rans = generateRandomString(55);
+				setcookie("token", $rans, 255*255*255*255, "/");
+				$sql = "INSERT INTO tokens (token, user, useragent) VALUES ('". $rans ."', '". $username. "', '". $_SERVER['HTTP_USER_AGENT']."')";
+
+if (mysqli_query($db, $sql)) {
+  echo "New record created successfully";
+  header('location: browse.php');
+}else{
+
+}
+				
 				}
 			  else
 				{
+					$rans = generateRandomString(55);
+					setcookie("token", $rans);
+					$sql = "INSERT INTO tokens (token, user, useragent) VALUES ('". $rans ."', '". $username. "', '". $_SERVER['HTTP_USER_AGENT']."')";
+	
+	if (mysqli_query($db, $sql)) {
+	  echo "New record created successfully";
+	  header('location: browse.php');
+	}else{
+	
+	}
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success'] = "You are now logged in";
 				header('location: index.php');
@@ -302,6 +418,9 @@ function post()
 
 	if (isset($_POST["post_btn"]))
 		{
+			if(strip_tags(stripcslashes($_SESSION['user']['username']) == "")){
+			
+			}else{
 				global $db;
 	$id = time();
 	mkdir("posts/" . $id);
@@ -312,24 +431,30 @@ function post()
 		$check = getimagesize($_FILES["file"]["tmp_name"]);
 		$uploadOk = 1;
 		move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
+		$img = new Imagick($target_file);
+        $img->stripImage();
+        $img->writeImage($target_file);
+        $img->clear();
+        $img->destroy();
 		$date = new DateTime();
 		$type = $_POST['type'];
 		$title = strip_tags(stripcslashes($_POST['nop']));
 		$desc = strip_tags(stripcslashes($_POST['description']));
 		$author = strip_tags(stripcslashes($_SESSION['user']['username']));
 		$time = time();
-		$query = "INSERT INTO posts (id, author, posttimestamp, type, title, description,repost,repostauthor)	VALUES ('". $id ."', '". $author."', ". $time .", '". $_POST['type'] ."', '". $_POST['nop'] ."', '". $_POST['description'] ."',0,0)"; //adds it to the database
-		$_SESSION['success'] = "Post created successfully!";
-		echo $query;
-	if(mysqli_query($db, $query)){
+		$query = "INSERT INTO posts (id, author, type, title, description,repost,repostauthor)	VALUES ('". $id ."', '". $author."', '". $_POST['type'] ."', '". $_POST['nop'] ."', '". $_POST['description'] ."',0,0)"; //adds it to the database
 		
+
+	if(mysqli_query($db, $query)){
+		$_SESSION['success'] = "Post created successfully!";
 	}else{
 		
-		echo 'Error updating database: '.mysqli_error($db);
-		exit();
+		$_SESSION['error'] = "ERROR: check your database config file.";
 	}
 		}
 	}
+}
+
 	function deletepost(){
 		global $db;
 		if($_SESSION['user']['username'] == $_POST['author']){ //check's if the author is the same as the users username
@@ -349,6 +474,7 @@ function post()
 		echo 'invalid author'. $_POST['author'];
 		
 	}
+
 }
 		function applyskin(){
 		

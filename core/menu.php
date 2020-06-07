@@ -4,21 +4,24 @@
 <link rel='stylesheet' href='mainpagestyle.css' />
 <?php
 include("core/json.php");
+
 if(file_exists("config/config.json")){
 
 }else{
   header("Header: install.php");
 }
 session_start();
+
+
 ?>
 <?php
 if ($_SESSION['user']['user_type'] == "admin") {
     ?>
-<div id="hidden_content" style="height: 40px; width: 100%; background-color: black;">
+<div id="hidden_content" style="min-height: 40px;max-height: 80; width: 100%; background-color: black; overflow: scroll; overflow-y: auto; overflow-x: hidden;" width="100%">
 <img width="30" height="30" src="img/SIB.png"></img>
 <a class="btn btn-link" href="su-admin/home.php">admin control panel</a>
 <button class="btn btn-link" data-toggle="modal" data-target=".bd-example-modal-lg">live style editor</button>
-<button class="btn btn-link" id="adminnavbtn">X</button>
+<!--<button class="btn btn-link" id="adminnavbtn">X</button> -->
 </div>
 <script>
    function slideToggle() {
@@ -66,6 +69,7 @@ if ($_SESSION['user']['user_type'] == "admin") {
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
+      <div class="jumbotron">
       <form method="post">
 	  <br/>
 	  <p>Background color of navbar</p>
@@ -84,10 +88,10 @@ if ($_SESSION['user']['user_type'] == "admin") {
 	  <input type='submit' class="btn btn-success" value="Set style" name="applyskin_btn" />
 	  <!-- Just an image -->
 <nav id="navbare" class="navbar navbar-light" style="">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#enb" aria-controls="enb" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse" id="enb">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="#">Test</a>
@@ -146,7 +150,8 @@ change: function(color) {
 
 	  </script>
 	 
-	  </form>
+    </form>
+</div>
     </div>
   </div>
 </div>
@@ -186,7 +191,7 @@ body {
         echo ' <li class="nav-item"><a class="nav-link" href="login.php">Login/signup</a></li>';
 	  }else{
 		  echo ' <li class="nav-item"><a class="nav-link" href="upload.php">upload <img width="16" height="16" src="img/upload.png"></img></a></li>';
-		  echo ' <li class="nav-item"><a class="nav-link" href="user.php">'.$_SESSION['user']['username'].'<img width="16" height="16" src="users/'. $_SESSION['user']['username'] .'/profilepictures/'. $_SESSION['user']['profile_picture']. '"></img></a></li>';
+		  echo ' <li class="nav-item"><a class="nav-link" href="user.php">'.$_SESSION['user']['username'].'<img width="16" height="16" src="users/'. $_SESSION['user']['username'] .'/profilepictures/'. $profilepicture. '"></img></a></li>';
 	  }
 	  ?>
       </li>

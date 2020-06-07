@@ -5,6 +5,10 @@
 		$_SESSION['msg'] = "You must log in first";
 		header('location: login.php');
 	}
+
+
+
+
 ?>
 <?php include("core/json.php"); ?>
 <html>
@@ -26,7 +30,7 @@
 					<strong><?php echo $_SESSION['user']['username']; ?></strong>
 
 					<small>
-						<i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+						<i  style="color: #888;">(<?php echo $usertype; ?>)</i> 
 						<br>
 						<a href="core/logout.php" style="color: red;">logout</a>
 					</small>
@@ -44,7 +48,10 @@
 
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><p>111</p></div>
-  <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="profile-tab"><p><?php
+  <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="profile-tab"><p><div class="row">
+  <div class="col-lg-6">
+  
+  <?php
 
 $conn = mysqli_connect($dbhost, $usernamedb, $password, $db);
 // Check connection
@@ -59,8 +66,11 @@ if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
 		if($row["author"] == $_SESSION['user']['username']){
-        echo '<div class="col-sm-6">
-  <a href="view.php?id='. $row["id"] .'"><img class="card-img-top" width="40%" height="40%" src="posts/'. $row["id"] .'/'. $row["id"].'.png" alt="'. $row["title"] .'"></a>
+
+
+			
+        echo '<div class="card">
+  <a href="view.php?id='. $row["id"] .'"><img class="" width="10%" src="posts/'. $row["id"] .'/'. $row["id"].'.png" alt="'. $row["title"] .'"></a>
   <div class="card-body">
     <h5 class="card-title">'. $row["title"] .'</h5>
     <p class="card-text">'. $row["description"] .'</p>
@@ -79,19 +89,23 @@ $value += 1;
 } else {
     if($value == 0){
 		
-		echo '<p>sorry but you havent posted anything post something by clicking <a href="upload.php">here</a></p>';
+		echo '
+				<div class="alert alert-dark" role="alert">
+				sorry but you havent posted anything post something by clicking <a href="upload.php">here</a>
+</div>';
 		
 	}
 }
 
 ?></p>
-<p>total of posts <?php echo $value; ?></p>
+<p class="margin: auto;">total of posts <?php echo $value; ?></p></div></div>
 </div>
   <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="contact-tab"><p>
   <form>
   <p>profile picture</p>
-  <input type="file" class="btn btn-success" />
-  
+  <input type="file" name="file" class="btn btn-success" />
+
+	<input type="submit" class="btn btn-success" value="Set as new profile picture" />
   </form>  
   
   

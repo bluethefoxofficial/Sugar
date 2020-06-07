@@ -1,14 +1,14 @@
 * { margin: 0px; padding: 0px; font: 15px arial, sans-serif;}
 body {
 	font-size: 120%;
-	background-image: url(img/background.png);
+	background-image: url("/img/background.png");
 	background: #F8F8FF;
 }
 .header {
-	width: 40%;
+	width: 80%;
 	margin: 50px auto 0px;
 	color: white;
-	background: #002bff;
+	background: #4a4e66;
 	text-align: center;
 
 	border-bottom: none;
@@ -16,7 +16,7 @@ body {
 	padding: 20px;
 }
 form, .content {
-	width: 40%;
+	width: 80%;
 	margin: 0px auto;
 	padding: 20px;
 	background: white;
@@ -32,7 +32,7 @@ form, .content {
 }
 .input-group input {
 	height: 30px;
-	width: 93%;
+	width: 100%;
 	padding: 5px 10px;
 	font-size: 16px;
 
@@ -51,7 +51,7 @@ form, .content {
 	padding: 10px;
 	font-size: 15px;
 	color: white;
-	background: #b85bff;
+	background: #4b4b4b;
 	border: none;
 	border-radius: 5px;
 }
