@@ -2,7 +2,6 @@
 
 <?php
 include("core/json.php");
-session_start();
 ?>
 <style>
 .navbar-light .navbar-nav .nav-link {
