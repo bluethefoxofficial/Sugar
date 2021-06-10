@@ -1,0 +1,1 @@
+uioe(universal indicator of pride(formally event)) is a method of showing images didicated to pride which each image is random on pride month.

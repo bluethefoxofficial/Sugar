@@ -204,7 +204,7 @@ $value += 1;
 
 
 
-	<input type="submit" class="btn btn-success" value="Set as new profile picture" />
+	<input type="submit" class="btn btn-success" name="setpfp" value="Set as new profile picture" />
 
   </form>  
 

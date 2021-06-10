@@ -90,6 +90,17 @@ if ($result->num_rows > 0) {
 
 					}
 					?>
+					<br/>
+					<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">User type</th>
+	  <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
 					<?php  if (isset($_SESSION['user'])) : ?>
 					<?php
 // Create connection
@@ -106,15 +117,20 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         ?>
-		
+		    <tr>
+      <th scope="row"><?php echo $row['id']; ?></th>
+      <td><?php echo $row['username']; ?></td>
+      <td><?php echo $row['user_type']; ?></td>
+	  <td><button class="btn btn-danger btn-sm">delete account</button> <button class="btn btn-danger btn-sm">make admin</button> <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Changes the email and password to make it inaccesible meaning this action cant be undone.">ban account</button> <button class="btn btn-danger btn-sm" >unban account</button></td>
+    		</tr>
 		<?php
     }
-} else {
-    echo "0 results";
 }
 $conn->close();
 ?>
 <?php endif ?>
+</tbody>
+</table>
 </div>
 </center>
 		</body>

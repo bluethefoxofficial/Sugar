@@ -1,9 +1,10 @@
-* { margin: 0px; padding: 0px; font: 15px arial, sans-serif;}
+
 body {
 	font-size: 120%;
 	background-image: url("/img/background.png");
 	background: #F8F8FF;
 }
+
 .header {
 	width: 80%;
 	margin: 50px auto 0px;
@@ -47,14 +48,7 @@ form, .content {
 
 	border: 1px solid gray;
 }
-.btn {
-	padding: 10px;
-	font-size: 15px;
-	color: white;
-	background: #4b4b4b;
-	border: none;
-	border-radius: 5px;
-}
+
 .error {
 	width: 92%; 
 	margin: 0px auto; 
@@ -64,12 +58,6 @@ form, .content {
 	background: #f2dede; 
 	border-radius: 5px; 
 	text-align: left;
-}
-.success {
-	color: #3c763d; 
-	background: #dff0d8; 
-	border: 1px solid #3c763d;
-	margin-bottom: 20px;
 }
 .profile_info img {
 	display: inline-block; 

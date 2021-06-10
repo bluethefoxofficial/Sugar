@@ -188,7 +188,7 @@ if($nsfw == true){
 
 
 
-<div id="dimScreen">
+<div id="dimScreen" style="backdrop-filter: blur(60px);">
 
 
 
@@ -390,11 +390,11 @@ function register()
 
 		}
 
-		$connul = new mysqli($dbhost, $usernamedb, $password, $db);
+		$conul = new mysqli($dbhost, $usernamedb, $password, $db);
 
-		if ($conn->connect_error) {
+		if ($conul->connect_error) {
 
-			die("Connection failed: " . $conn->connect_error);
+			die("Connection failed: " . $conul->connect_error);
 
 		} 
 
@@ -404,7 +404,7 @@ function register()
 
 		$userper = 0;
 
-		$result = $connul->query($sql);
+		$result = $conul->query($sql);
 
 		
 
@@ -519,6 +519,7 @@ $query = "INSERT INTO users (username, email, password, user_type, profile_pictu
 			copy("img/dpfp.png", "users/$username/profilepictures/4738783.png");
 
 			file_put_contents("users/$username/data/bio.sugar", base64_encode("no bio has been placed in this"));
+			file_put_contents("users/$username/data/SYSCHECK.sugar", "0XF65");
 
 
 

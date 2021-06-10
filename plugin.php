@@ -1,4 +1,4 @@
-<?php include("core/json.php"); ?>
+<?php include("core/json.php"); 	include('functions.php'); ?>
 <html>
 	<head>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -19,7 +19,6 @@
 			exit();
 		}
 		?>
-		<center><h3 class="display-4">Your search: <?php echo file_get_contents("plugins/". $_GET['page']. "/title.txt"); ?></h3></center>
 		<?php
 		
 		include("plugins/". $_GET['page']. "/core.php");

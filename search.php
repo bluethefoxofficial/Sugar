@@ -1,4 +1,5 @@
 <?php include("core/json.php"); ?>
+<?php include("functions.php"); ?>
 <html>
 	<head>
 	<link rel="stylesheet" href="css/bootstrap.min.css">

@@ -44,6 +44,13 @@ if (isset($_GET['logout'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <?php include("../core/adminmenu.php"); ?>
+<?php
+
+
+if($_POST['submit']){
+	file_put_contents("../style.css", $_POST['content']);
+}
+?>
 </head>
 <body>
 <center>
@@ -52,16 +59,10 @@ if (isset($_GET['logout'])) {
 <form action="" method="post">
 <textarea rows="20" name="content" class="form-control" ><?php echo file_get_contents("../style.css"); ?></textarea>
 <br/>
-<input type="submit" value="edit" name="submit"/>
+<input type="submit" class="btn btn-success" value="edit" name="submit"/>
 </form>
 
-<?php
 
-
-if($_POST['submit']){
-	file_put_contents("../style.css", $_POST['content']);
-}
-?>
 </center>
 		</body>
 		<footer>

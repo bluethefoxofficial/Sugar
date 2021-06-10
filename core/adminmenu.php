@@ -20,7 +20,7 @@ body {
 </style>
 <link rel="icon" href="<?php echo $logo; ?>">
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(<?php echo $navbarcolour; ?>) !important; color: rgba(<?php echo $navbarfontcolour; ?>)">
-  <a class="navbar-brand" href="index.php"><?php print($name); ?></a>
+  <a class="navbar-brand" href="../index.php"><?php print($name); ?> Visit site</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -38,6 +38,9 @@ body {
       </li>
       <li class="nav-item">
         <a class="nav-link" href="updateconfig.php">edit config.json</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="phpinfo.php">phpinfo</a>
       </li>
 	  
     </ul>
